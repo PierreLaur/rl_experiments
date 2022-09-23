@@ -1,2 +1,0 @@
-model_checkpoint_path: "SAC_Qtarget_pendulum"
-all_model_checkpoint_paths: "SAC_Qtarget_pendulum"
