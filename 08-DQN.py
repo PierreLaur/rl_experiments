@@ -11,6 +11,7 @@ import os
 from collections import deque
 import time
 
+# hide usual tf message
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 

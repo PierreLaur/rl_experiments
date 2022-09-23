@@ -1,5 +1,6 @@
 '''
-Testing different DQN improvements
+Testing the Double DQN
+Uses 2 threads to train single & double DQN in parallel
 '''
 from collections import deque
 import numpy as np
@@ -136,7 +137,7 @@ def train_agent(env, agent, n_episodes, graph_name='') :
         if exec_time > last_plot_time :
             last_plot_time = exec_time
             with writer.as_default() :
-                tf.summary.scalar('Rainbow/Average_Score_'+graph_name, avg_score, step=exec_time)
+                tf.summary.scalar('DQN/Average_Score_'+graph_name, avg_score, step=exec_time)
 
 def test_agent(env, agent, n_episodes) :
     for ep in range(n_episodes) :

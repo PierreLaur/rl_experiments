@@ -3,7 +3,6 @@ Implementing Soft Actor-Critic (the latest version, from Haarnoja et al. 2019)
 no automatic temperature learning for now (fixed to 1) & a single Q function instead of 2
 '''
 
-from asyncio.unix_events import BaseChildWatcher
 import numpy as np
 import tensorflow as tf
 import tensorflow_probability as tfp
@@ -115,6 +114,16 @@ class SACAgent:
         dones = np.array(self.dones)[batch_indices]
         return states, actions, rewards, new_states, dones
 
+    def save_model(self) :
+        self.policy.save_weights('results/SAC_policy_pendulum')
+        self.Q.save_weights('results/SAC_Q_pendulum')
+        self.Q_target.save_weights('results/SAC_Qtarget_pendulum')
+
+    def load_model(self) :
+        self.policy.load_weights('results/SAC_policy_pendulum')
+        self.Q.load_weights('results/SAC_Q_pendulum')
+        self.Q_target.load_weights('results/SAC_Qtarget_pendulum')
+
     def learn(self):
 
         states, actions, rewards, new_states, dones = self.generate_batch()
@@ -152,13 +161,13 @@ class SACAgent:
 
 print(' -   -   -   Testing Soft Actor-Critic    -   -   -\n')
 
-# envname = int(input('Choose an environment :\n\tAnt\n\tInvertedPendulum')
 render = input("Render ? (y/n)")
 render = True if render=="y" else False
 env = gym.make('InvertedPendulum')
 n_episodes = 500
 average_score = 0
 agent = SACAgent(env, reward_scale=1)
+
 for episode in range(n_episodes):
     done = False
     state = env.reset()

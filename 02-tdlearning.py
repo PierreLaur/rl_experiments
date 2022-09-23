@@ -1,7 +1,7 @@
 '''
 Testing TD Learning algorithms on the CliffWalking environment - Small & Discrete state & action space, deterministic
 On-policy Monte Carlo Control, SARSA, Expected SARSA, Q-Learning, Double Q-Learning, Dyna-Q
-Unknown dynamics - actual learning algorithms.
+Unknown dynamics - these are actual learning algorithms.
 The first 3 algorithms derive a non-optimal, "safe" policy (walking far from the cliff, despite not actually risking to fall)
 More info about this in Sutton & Barto's RL book, page 132
 '''
@@ -40,7 +40,7 @@ print()
 
 
 st=time.time()
-sarsa_policy=TD_algorithms.sarsa(env,num_samples,discount,step_size,epsilon,init_Q=init_Q) #,show_Qvalues=True)
+sarsa_policy=TD_algorithms.sarsa(env,num_samples,discount,step_size,epsilon) #,show_Qvalues=True)
 print("     Execution time :",round(time.time()-st,3),"seconds")
 utils.evaluate_policy(sarsa_policy,env,1)
 print()

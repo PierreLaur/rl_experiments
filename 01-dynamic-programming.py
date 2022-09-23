@@ -3,9 +3,9 @@ Testing Dynamic Programming algorithms on the Frozen Lake environment - Small & 
 Policy Iteration & Value Iteration
 The dynamics are known - these are planning (!= learning) algorithms
 Even with a good strategy, it is impossible to win 100% of the time in this environment
+Based on Sutton&Barto's textbook chapter 4
 '''
 
-from random import seed
 import gym
 import numpy as np
 import time
@@ -21,10 +21,10 @@ RANDOM_SEED = 1
 # np.random.seed(RANDOM_SEED)
 
 
-def get_probs(V, arr):
+def compute_update(V, arr):
     res = []
-    for i in arr:
-        res.append(i[0]*(i[2]+discount*V[i[1]]))
+    for P_s_a_next_s, next_s, reward, _ in arr:
+        res.append(P_s_a_next_s*(reward+discount*V[next_s]))
     return sum(res)
 
 def policy_evaluation(env, V, pi, discount):
@@ -42,7 +42,6 @@ def policy_evaluation(env, V, pi, discount):
             for a in range(n_actions):
                 for P_s_a_next_s, next_s, reward, _ in env.env.P[s][a]:
                     V[s] += pi[s][a]*P_s_a_next_s*(reward+discount*V[next_s])
-
             improvement = np.abs(oldV-V[s])
     return V
 
@@ -52,7 +51,7 @@ def policy_improvement(env, V, pi):
     for s in range(n_states):
 
         sums = list(map(
-            get_probs, [V for i in range(n_states)], list(
+            compute_update, [V for i in range(n_states)], list(
                 env.env.P[s].values())
         ))
 
