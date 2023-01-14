@@ -1,5 +1,5 @@
-# imitation_learning
-Minimal implementations of Imitation Learning algorithms.  
+# rl_experiments
+Minimal implementations of Reinforcement Learning algorithms.  
 Mainly done during my internship at 3IT Sherbrooke - Humanoid and Collaborative Robotics team  
 Please feel free to email me if you have any questions.  
 Pierre Laur [plaur@insa-toulouse.fr](mailto:plaur@insa-toulouse.fr)  
